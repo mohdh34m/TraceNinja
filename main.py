@@ -1,26 +1,25 @@
-import argparse
+import concurrent.futures
+from utils import cli
+from modules import crtsh
 
-def print_banner():
-    version = "0.1"
-    banner = f"""
- 
-███╗   ███╗██████╗ ███████╗███╗   ██╗██╗   ██╗███╗   ███╗
-████╗ ████║██╔══██╗██╔════╝████╗  ██║██║   ██║████╗ ████║
-██╔████╔██║██║  ██║█████╗  ██╔██╗ ██║██║   ██║██╔████╔██║
-██║╚██╔╝██║██║  ██║██╔══╝  ██║╚██╗██║██║   ██║██║╚██╔╝██║
-██║ ╚═╝ ██║██████╔╝███████╗██║ ╚████║╚██████╔╝██║ ╚═╝ ██║
-╚═╝     ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝ {version} ╚═╝                                                                         
-    """
-    print(banner)
-    print('{:^50s}'.format("⟸  Subdomain Gathering Tool ⟹"))
-    print('{:^50s}'.format("by @mohdh34m with ❤\n"))
+def main():
+    
+    target = cli.menu()
 
-print_banner()
+    scripts = [crtsh]
+    
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        future_to_script = {executor.submit(script.cli, target): script for script in scripts}
+        all_subdomains = []
+        for future in concurrent.futures.as_completed(future_to_script):
+            script = future_to_script[future]
+            subdomains = future.result()
+            if subdomains:
+                all_subdomains.extend(subdomains)
 
-parser = argparse.ArgumentParser(usage="main.py [options] url")
-parser.add_argument("-d", "--domain", help="Specify the target domain for subdomain enumeration.")
-parser.add_argument("-l", "--list", help="Specify a file containing a list of root domains to enumerate.")
-parser.add_argument("-o", "--output", help="Specify the output file to save the final enumeration results. Default filename format: <name>.txt.")
-parser.add_argument("-hp", "--http-probe", action="store_true", help="Perform HTTP/HTTPS server probing.")
+    for subdomain in all_subdomains:
+        print(subdomain)
 
-args = parser.parse_args()
+
+if __name__ == '__main__':
+    main()
