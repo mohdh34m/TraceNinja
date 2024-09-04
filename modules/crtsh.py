@@ -1,6 +1,5 @@
 import requests
 import sys
-from utils import loader
 
 def cli(target):
     if len(target) < 3:
@@ -15,6 +14,7 @@ def cli(target):
         print("Error: Failed to retrieve data from crt.sh")
         sys.exit(1)
 
+
     data = response.json()
     for item in data:
         sub = item['name_value']
@@ -25,7 +25,6 @@ def cli(target):
             else:
                 subdomains.add(s)
     
-    loader.progressBar()
     return list(subdomains)
 
 if __name__ == '__main__':
