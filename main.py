@@ -4,9 +4,11 @@ from modules import crtsh
 from modules import alienvault
 from modules import hackertarget
 from modules import jldc
+from modules import securitytrails
+from modules import rapidapi
 
 def main(target):
-    scripts = [crtsh, alienvault, hackertarget, jldc]
+    scripts = [crtsh, alienvault, hackertarget, jldc, securitytrails, rapidapi]
     
     with concurrent.futures.ThreadPoolExecutor() as executor:
         future_to_script = {executor.submit(script.cli, target): script for script in scripts}
