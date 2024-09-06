@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def cli(target):
+def fetch(target):
     api_key = os.getenv('SECURITY_TRAILS_API_KEY')
 
     if not api_key:
@@ -28,4 +28,4 @@ def cli(target):
     return list(subdomains)
 
 if __name__ == '__main__':
-    cli()
+    fetch()

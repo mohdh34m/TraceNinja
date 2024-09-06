@@ -1,14 +1,17 @@
 import requests
 import sys
 
-def cli(target):
+def fetch(target):
     if len(target) < 3:
         print("Usage: python script.py <domain>")
         sys.exit(1)
 
     subdomains = set()
     url = 'https://crt.sh/?q={}&output=json'.format(target)
-    response = requests.get(url)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+    }
+    response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
         print("Error: Failed to retrieve data from crt.sh")
@@ -28,4 +31,4 @@ def cli(target):
     return list(subdomains)
 
 if __name__ == '__main__':
-    cli()
+    fetch()

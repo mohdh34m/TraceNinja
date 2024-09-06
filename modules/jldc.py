@@ -1,7 +1,7 @@
 import requests
 import sys
 
-def cli(target):
+def fetch(target):
     if len(target) < 3:
         print("Usage: python script.py <domain>")
         sys.exit(1)
@@ -20,4 +20,4 @@ def cli(target):
 
 
 if __name__ == '__main__':
-    cli()
+    fetch()
