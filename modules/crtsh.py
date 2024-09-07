@@ -14,8 +14,7 @@ def fetch(target):
     response = requests.get(url, headers=headers)
 
     if response.status_code != 200:
-        print("Error: Failed to retrieve data from crt.sh")
-        sys.exit(1)
+        return []
 
 
     data = response.json()

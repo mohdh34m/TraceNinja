@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from rich import print as rprint
 
 load_dotenv()
 
@@ -22,6 +23,7 @@ def fetch(target):
     response = requests.get(url, headers=headers, params=querystring)
 
     if response.status_code != 200:
+        rprint("[red1][ERROR] [RapidApi]","You do not have permission to access this resource. Check your API key.")
         return []
 
     data = response.json()["subdomains"]

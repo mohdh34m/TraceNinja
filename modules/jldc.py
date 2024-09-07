@@ -10,6 +10,9 @@ def fetch(target):
 
     response = requests.get(url)
 
+    if response.status_code != 200:
+        return []
+    
     data = response.json()
 
     subdomains = []

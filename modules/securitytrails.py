@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from rich import print as rprint
 
 load_dotenv()
 
@@ -16,9 +17,13 @@ def fetch(target):
     }
     response = requests.get(url, headers=headers)
 
-    if response.status_code != 200:
+    if response.status_code == 401:
+        rprint("[red1][ERROR] [SecurityTails]","Unauthorized access (401). Please check your API credentials or authentication token.")
         return []
-
+    elif response.status_code == 429:
+        rprint("[yellow1][WARNING] [SecurityTails]","Rate limit exceeded (429). You have reached the API request limit. Please wait and try again later.")
+        return[]
+    
     data = response.json()["subdomains"]
 
     subdomains = []
