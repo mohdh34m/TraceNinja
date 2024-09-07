@@ -1,8 +1,8 @@
-# MDenum
+# TraceNinja
 
 ## Description
 
-**MDenum** is a subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^. It's currently under development.
+**TraceNinja** is a subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^. It's currently under development.
 
 ## Development Status
 
@@ -21,4 +21,4 @@ here's a guide for contributing:
 
 ## License
 
-**MDenum** is distributed under the **MIT** license. Please look at the LICENSE: [Here](https://github.com/mohdh34m/MDenum/tree/master?tab=MIT-1-ov-file).
+**TraceNinja** is distributed under the **MIT** license. Please look at the LICENSE: [Here](https://github.com/mohdh34m/MDenum/tree/master?tab=MIT-1-ov-file).
