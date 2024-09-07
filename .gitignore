@@ -1,3 +1,6 @@
 Pipfile
 __pycache__
 .env
+build/
+dist/
+TraceNinja.egg-info/

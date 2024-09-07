@@ -1,22 +1,26 @@
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+with open("requirements.txt") as f:
+    required = f.read().splitlines()
+
 setup(
-    name='MDenum',
-    version='0.1',
-    description='A subdomain enumeration tool for Python',
-    long_description='A subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^',
-    author='Mohamed',
-    license='MIT',
+    name="TraceNinja",
+    version="1.0.2",
+    description="""TraceNinja is a subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^. It's currently under development.""",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    author="Mohamed",
+    packages=find_packages(),
     classifiers=[
-        'Development Status :: 3 - Alpha',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
     ],
+    install_requires=required,
+    license="MIT",
+    url="https://github.com/mohdh34m/TraceNinja",
+    python_requires=">=3.10",
 )
-
-
