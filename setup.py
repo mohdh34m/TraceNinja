@@ -19,6 +19,11 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
+    entry_points={
+        'console_scripts': [
+            'traceninja=TraceNinja.traceninja:main',
+        ],
+    },
     install_requires=required,
     license="MIT",
     url="https://github.com/mohdh34m/TraceNinja",

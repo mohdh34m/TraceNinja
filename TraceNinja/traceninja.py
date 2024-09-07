@@ -1,32 +1,26 @@
 import time
 import datetime
 import concurrent.futures
-from utils.handler import handler
+from TraceNinja.utils.handler import handler
 from rich import print as rprint
-from modules import crtsh
-from modules import alienvault
-from modules import hackertarget
-from modules import jldc
-from modules import securitytrails
-from modules import rapidapi
+from TraceNinja.modules import crtsh, alienvault, hackertarget, jldc, securitytrails, rapidapi
 
-
-domain, output = handler()
-
-def main(target):
+def main():
+    domain, output = handler()
+    
     now = datetime.datetime.now()
 
     print("-----------------------------------------------------------------------------")
     print("🛠️ Version: Beta")
-    print("🎯 Target Domain:" , target)
+    print("🎯 Target Domain:" , domain)
     print("⏰ Starting:", now.strftime("%Y-%m-%d %H:%M:%S"))
     print("-----------------------------------------------------------------------------")
 
     scripts = [crtsh, alienvault, hackertarget, jldc, securitytrails, rapidapi]
-    rprint("[deep_sky_blue1][INFO]","Starting subdomain enumeration for target: {}".format(target))
+    rprint("[deep_sky_blue1][INFO]","Starting subdomain enumeration for target: {}".format(domain))
     with concurrent.futures.ThreadPoolExecutor() as executor:
         start_time = time.time()
-        future_to_script = {executor.submit(script.fetch, target): script for script in scripts}
+        future_to_script = {executor.submit(script.fetch, domain): script for script in scripts}
         all_subdomains = []
         rprint("[deep_sky_blue1][INFO]","Querying subdomains")
         for future in concurrent.futures.as_completed(future_to_script):
@@ -44,4 +38,4 @@ def main(target):
         print(subdomain)
 
 if __name__ == '__main__':
-    main(domain)
+    main()
