@@ -1,14 +1,15 @@
+import time
+import datetime
 import concurrent.futures
+from utils.handler import handler
+from rich import print as rprint
 from modules import crtsh
 from modules import alienvault
 from modules import hackertarget
 from modules import jldc
 from modules import securitytrails
 from modules import rapidapi
-from utils.handler import handler
-import time
-import datetime
-from rich import print as rprint
+
 
 domain, output = handler()
 
