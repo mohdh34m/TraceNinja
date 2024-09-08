@@ -9,8 +9,23 @@ from packaging.version import Version
 import subprocess
 import sys
 import pkg_resources
+import os
 
 CURRENT_VERSION = pkg_resources.require("TraceNinja")[0].version
+
+current_dir = os.path.dirname(__file__)
+
+def save_subdomains(subdomains, output, current_dir):
+    if output and output.lower() != "none":
+        file_path = os.path.abspath(output) if os.path.isabs(output) else os.path.join(os.getcwd(), output)
+        
+        try:
+            with open(file_path, "w") as file:
+                for subdomain in subdomains:
+                    file.write(f"{subdomain}\n")
+            rprint(f"[spring_green1][SUCCESS] Subdomains have been saved to {file_path}")
+        except IOError as e:
+            rprint(f"[red1][ERROR] Failed to save subdomains to file: {e}")
 
 def updater():
     update = input("Do you want to update TraceNinja? (yes/no): ").lower().strip()
@@ -61,8 +76,9 @@ def main():
             if subdomains:
                 all_subdomains.extend(subdomains)
 
-    subdomains = list(set(all_subdomains)) 
+    subdomains = list(set(all_subdomains))
     rprint("[spring_green1][SUCCESS]","Retrieved subdomains")
+    save_subdomains(subdomains, output, current_dir)
     elapsed_time = time.time() - start_time
     rprint("[deep_sky_blue1][INFO]","Subdomain enumeration completed in {} seconds".format(elapsed_time))
     rprint("[deep_sky_blue1][INFO]","Total unique subdomains found: {}".format(len(subdomains)))
