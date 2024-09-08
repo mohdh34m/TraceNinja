@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding = "utf-8") as fh:
     long_description = fh.read()
 
 with open("requirements.txt") as f:
@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="TraceNinja",
-    version="1.0.2",
+    version="1.0.3",
     description="""TraceNinja is a subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^. It's currently under development.""",
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -4,17 +4,49 @@ import concurrent.futures
 from TraceNinja.utils.handler import handler
 from rich import print as rprint
 from TraceNinja.modules import crtsh, alienvault, hackertarget, jldc, securitytrails, rapidapi
+from importlib_metadata import version as get_installed_version
+from packaging.version import Version
+import subprocess
+import sys
+import pkg_resources
+
+CURRENT_VERSION = pkg_resources.require("TraceNinja")[0].version
+
+def updater():
+    update = input("Do you want to update TraceNinja? (yes/no): ").lower().strip()
+
+    if update == "yes":
+        try:
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "--upgrade", "TraceNinja"])
+            print("TraceNinja has been successfully updated!")
+        except subprocess.CalledProcessError as e:
+            print(f"An error occurred while updating: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+    elif update == "no":
+        print("Update cancelled.")
+    else:
+        print("Invalid input. Please enter 'yes' or 'no'.")
+
+installed_version = get_installed_version('TraceNinja')
 
 def main():
+
     domain, output = handler()
     
     now = datetime.datetime.now()
 
     print("-----------------------------------------------------------------------------")
-    print("🛠️ Version: Beta")
+    print("🛠️ Version:", CURRENT_VERSION)
     print("🎯 Target Domain:" , domain)
     print("⏰ Starting:", now.strftime("%Y-%m-%d %H:%M:%S"))
     print("-----------------------------------------------------------------------------")
+
+    if Version(CURRENT_VERSION) < Version(installed_version):
+        print("update your package")
+        updater()
+    elif Version(installed_version) == Version(CURRENT_VERSION):
+        print(f"You are running the latest version of TraceNinja. (Version: {CURRENT_VERSION})")
 
     scripts = [crtsh, alienvault, hackertarget, jldc, securitytrails, rapidapi]
     rprint("[deep_sky_blue1][INFO]","Starting subdomain enumeration for target: {}".format(domain))
