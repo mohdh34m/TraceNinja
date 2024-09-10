@@ -1,9 +1,11 @@
 import requests
 import os
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from rich import print as rprint
 
-load_dotenv()
+env_file = find_dotenv(f'.env.{os.getenv("ENV", "example")}')
+
+load_dotenv(env_file)
 
 def fetch(target):
     api_key = os.getenv('RAPIDAPI_API_KEY')
