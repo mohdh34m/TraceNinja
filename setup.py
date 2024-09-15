@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
 
 setup(
     name="TraceNinja",
-    version="1.0.4",
+    version="1.0.5",
     description="""TraceNinja is a subdomain enumeration tool for Python that allows you to enumerate domains and gather information about them. And much much more on the future ^_^. It's currently under development.""",
     long_description=long_description,
     long_description_content_type="text/markdown",
